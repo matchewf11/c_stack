@@ -12,9 +12,6 @@ struct stack {
 };
 
 Stack *stack_build(size_t init_cap, size_t data_size) {
-  assert(init_cap > 0);
-  assert(data_size > 0);
-
   Stack *stack = malloc(sizeof(Stack));
   if (stack == NULL) {
     return NULL;
