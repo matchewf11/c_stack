@@ -51,4 +51,25 @@ void stack_pop(Stack *stack, void *out);
 // @note make sure stack and out are not null and stack is not empty
 void stack_peek(const Stack *stack, void *out);
 
+// Macro to auto-generate type wrapper for a stack
+// stack_length and stack_free are not needed
+#define DEFINE_STACK_TYPE_WRAPPER(TYPE)                                        \
+  typedef Stack StackInt;                                                      \
+  static inline StackInt *stack_build_##TYPE(size_t init_cap) {                \
+    return stack_build(init_cap, sizeof(TYPE));                                \
+  }                                                                            \
+  static inline TYPE stack_push_##TYPE(StackInt *stack, TYPE val) {            \
+    return stack_push(stack, &val);                                            \
+  }                                                                            \
+  static inline TYPE stack_pop_##TYPE(StackInt *stack) {                       \
+    TYPE out;                                                                  \
+    stack_pop(stack, &out);                                                    \
+    return out;                                                                \
+  }                                                                            \
+  static inline TYPE stack_peek_##TYPE(StackInt *stack) {                      \
+    TYPE out;                                                                  \
+    stack_peek(stack, &out);                                                   \
+    return out;                                                                \
+  }
+
 #endif
