@@ -57,7 +57,7 @@ void stack_peek(const Stack *stack, void *out);
   static inline Stack *stack_build_##TYPE(size_t init_cap) {                   \
     return stack_build(init_cap, sizeof(TYPE));                                \
   }                                                                            \
-  static inline TYPE stack_push_##TYPE(Stack *stack, TYPE val) {               \
+  static inline int stack_push_##TYPE(Stack *stack, TYPE val) {               \
     return stack_push(stack, &val);                                            \
   }                                                                            \
   static inline TYPE stack_pop_##TYPE(Stack *stack) {                          \
